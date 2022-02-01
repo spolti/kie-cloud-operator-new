@@ -1,0 +1,9 @@
+domain: kiegroup.org
+layout:
+- go.kubebuilder.io/v3
+plugins:
+  manifests.sdk.operatorframework.io/v2: {}
+  scorecard.sdk.operatorframework.io/v2: {}
+projectName: kie-cloud-operator-new
+repo: github.com/kiegroup/kie-cloud-operator-new
+version: "3"
