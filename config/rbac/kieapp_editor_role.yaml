@@ -1,0 +1,24 @@
+# permissions for end users to edit kieapps.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kieapp-editor-role
+rules:
+- apiGroups:
+  - app.kiegroup.org
+  resources:
+  - kieapps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - app.kiegroup.org
+  resources:
+  - kieapps/status
+  verbs:
+  - get
