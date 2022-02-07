@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package controllers
+package kieapp
 
 import (
 	"path/filepath"
@@ -30,7 +30,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	appv2 "github.com/kiegroup/kie-cloud-operator-new/api/v2"
+	appv2 "github.com/spolti/kie-cloud-operator-new/api/v2"
 	//+kubebuilder:scaffold:imports
 )
 

@@ -5,7 +5,7 @@ plugins:
   manifests.sdk.operatorframework.io/v2: {}
   scorecard.sdk.operatorframework.io/v2: {}
 projectName: kie-cloud-operator-new
-repo: github.com/kiegroup/kie-cloud-operator-new
+repo: github.com/spolti/kie-cloud-operator-new-new
 resources:
 - api:
     crdVersion: v1
@@ -14,6 +14,6 @@ resources:
   domain: kiegroup.org
   group: app
   kind: KieApp
-  path: github.com/kiegroup/kie-cloud-operator-new/api/v2
+  path: github.com/spolti/kie-cloud-operator-new/api/v2
   version: v2
 version: "3"
