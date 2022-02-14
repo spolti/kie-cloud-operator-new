@@ -2,6 +2,9 @@ package defaults
 
 import (
 	"fmt"
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/test"
 	"github.com/stretchr/testify/assert"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"testing"

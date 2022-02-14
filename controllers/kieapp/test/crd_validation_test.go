@@ -1,6 +1,8 @@
 package test
 
 import (
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
 	"strings"
 	"testing"
 
@@ -13,7 +15,7 @@ import (
 )
 
 func TestExampleCustomResources(t *testing.T) {
-	schema := getSchema(t, api.SchemeGroupVersion.Version)
+	schema := getSchema(t, api.GroupVersion.Version)
 	box := packr.New("deploy/crs/v2", "../../../../deploy/crs/v2")
 	assert.Greater(t, len(box.List()), 0)
 	for _, file := range box.List() {
@@ -39,7 +41,7 @@ spec:
 	var input map[string]interface{}
 	assert.NoError(t, yaml.Unmarshal([]byte(inputYaml), &input))
 
-	schema := getSchema(t, api.SchemeGroupVersion.Version)
+	schema := getSchema(t, api.GroupVersion.Version)
 	assert.NoError(t, schema.Validate(input))
 
 	deleteNestedMapEntry(input, "spec", "environment")
@@ -62,7 +64,7 @@ spec:
 	var input map[string]interface{}
 	assert.NoError(t, yaml.Unmarshal([]byte(inputYaml), &input))
 
-	schema := getSchema(t, api.SchemeGroupVersion.Version)
+	schema := getSchema(t, api.GroupVersion.Version)
 	assert.NoError(t, schema.Validate(input))
 
 	deleteNestedMapEntry(input, "spec", "auth", "sso", "realm")
@@ -86,7 +88,7 @@ spec:
 	var input map[string]interface{}
 	assert.NoError(t, yaml.Unmarshal([]byte(inputYaml), &input))
 
-	schema := getSchema(t, api.SchemeGroupVersion.Version)
+	schema := getSchema(t, api.GroupVersion.Version)
 	assert.NoError(t, schema.Validate(input))
 
 	deleteNestedMapEntry(input, "spec", "objects", "console", "env")
@@ -102,7 +104,7 @@ spec:
 }
 
 func TestCompleteCRD(t *testing.T) {
-	schema := getSchema(t, api.SchemeGroupVersion.Version)
+	schema := getSchema(t, api.GroupVersion.Version)
 	missingEntries := schema.GetMissingEntries(&api.KieApp{})
 	for _, missing := range missingEntries {
 		if strings.HasPrefix(missing.Path, "/status/conditions/lastTransitionTime") {
@@ -141,7 +143,7 @@ func getAPIVersions(t *testing.T) (apiVersions []string) {
 			apiVersions = append(apiVersions, configs.APIVersion)
 		}
 	}
-	assert.Contains(t, apiVersions, api.SchemeGroupVersion.Version)
+	assert.Contains(t, apiVersions, api.GroupVersion.Version)
 	return apiVersions
 }
 
@@ -162,7 +164,7 @@ func snippets(t *testing.T, file, yamlStr string) string {
 func TestJvmCrd(t *testing.T) {
 	crdYAML, _ := packr.New("deploy/crds", "../../../../deploy/crds").FindString("kieapp.crd.yaml")
 	crdJSON, _ := yaml.YAMLToJSON([]byte(crdYAML))
-	path := "spec.versions.#(name==" + api.SchemeGroupVersion.Version + ").schema.openAPIV3Schema.properties.spec.properties.objects.properties.servers.items.properties.jvm.properties"
+	path := "spec.versions.#(name==" + api.GroupVersion.Version + ").schema.openAPIV3Schema.properties.spec.properties.objects.properties.servers.items.properties.jvm.properties"
 	jvm := gjson.Get(string(crdJSON), path)
 
 	testString(t, "javaOptsAppend", jvm)

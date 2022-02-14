@@ -7,6 +7,8 @@ import (
 	operatorsv1alpha1 "github.com/operator-framework/api/pkg/operators/v1alpha1"
 	"github.com/spolti/kie-cloud-operator-new/components"
 	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/shared"
+	"k8s.io/client-go/tools/clientcmd/api"
 	"os"
 	"reflect"
 	"strings"

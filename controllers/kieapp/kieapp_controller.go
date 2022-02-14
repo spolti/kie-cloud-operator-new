@@ -77,7 +77,7 @@ type KieAppReconciler struct {
 // the user.
 //
 // For more details, check Reconcile and its Result here:
-// - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.10.0/pkg/reconcile
+// - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.9.1/pkg/reconcile
 func (reconciler *KieAppReconciler) Reconcile(ctx context.Context, request ctrl.Request) (ctrl.Result, error) {
 
 	log := logger.FromContext(ctx)
@@ -102,7 +102,7 @@ func (reconciler *KieAppReconciler) Reconcile(ctx context.Context, request ctrl.
 
 	// Fetch the KieApp instance
 	instance := &api.KieApp{}
-	err := reconciler.Get(ctx, request.NamespacedName, instance)
+	err := reconciler.Service.Get(ctx, request.NamespacedName, instance)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			// Request object not found, could have been deleted after reconcile request.
@@ -972,7 +972,7 @@ func (reconciler *KieAppReconciler) CreateConfigMaps(myDep *appsv1.Deployment) {
 					log.Infof("Differences detected in %s ConfigMap.", configMap.Name)
 					existingCM.Name = strings.Join([]string{configMap.Name, "bak"}, "-")
 					for annotation, ver := range configMap.Annotations {
-						if annotation == api.SchemeGroupVersion.Group {
+						if annotation == api.GroupVersion.Group {
 							existingCM.Name = strings.Join([]string{configMap.Name, ver, "bak"}, "-")
 						}
 					}

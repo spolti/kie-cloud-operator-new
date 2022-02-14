@@ -2,11 +2,14 @@ package status
 
 import (
 	"fmt"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
 )
 
 func TestSetDeployed(t *testing.T) {

@@ -3,6 +3,10 @@ package kieapp
 import (
 	"context"
 	"fmt"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/shared"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/test"
+	"github.com/spolti/kie-cloud-operator-new/version"
 	"os"
 	"strings"
 	"testing"
@@ -135,7 +139,7 @@ func checkCSV(t *testing.T, csv *operators.ClusterServiceVersion) {
 		}
 		return service.Client.Create(ctx, obj, opts...)
 	}
-	deployConsole(&Reconciler{Service: service, OcpVersion: "v4.1"}, operator)
+	deployConsole(context.TODO(), &KieAppReconciler{Service: service, OcpVersion: "v4.1"}, operator)
 
 	updatedCSV := &operators.ClusterServiceVersion{}
 	err = service.Get(context.TODO(), types.NamespacedName{Name: csv.Name, Namespace: csv.Namespace}, updatedCSV)

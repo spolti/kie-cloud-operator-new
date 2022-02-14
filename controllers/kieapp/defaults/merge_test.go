@@ -1,6 +1,8 @@
 package defaults
 
 import (
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/test"
 	"testing"
 
 	"github.com/ghodss/yaml"

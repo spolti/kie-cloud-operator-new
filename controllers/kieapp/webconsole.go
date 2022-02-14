@@ -6,6 +6,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
+	"github.com/spolti/kie-cloud-operator-new/version"
 	"strings"
 
 	"github.com/RHsyseng/operator-utils/pkg/utils/openshift"
@@ -60,7 +62,7 @@ metadata:
 			newSample := &consolev1.ConsoleYAMLSample{}
 			err = reconciler.Service.Get(context.TODO(), types.NamespacedName{Name: yamlSample.Name}, newSample)
 			if apierrors.IsNotFound(err) {
-				yamlSample.SetAnnotations(map[string]string{api.SchemeGroupVersion.Group: version.Version})
+				yamlSample.SetAnnotations(map[string]string{api.GroupVersion.Group: version.Version})
 				err = reconciler.Service.Create(context.TODO(), yamlSample)
 				if err != nil {
 					return err
@@ -68,8 +70,8 @@ metadata:
 				log.Info("Created")
 			} else if err == nil {
 				if newSample.GetAnnotations() == nil ||
-					semver.Compare(semver.MajorMinor("v"+version.Version), "v"+newSample.GetAnnotations()[api.SchemeGroupVersion.Group]) > 0 {
-					newSample.SetAnnotations(map[string]string{api.SchemeGroupVersion.Group: version.Version})
+					semver.Compare(semver.MajorMinor("v"+version.Version), "v"+newSample.GetAnnotations()[api.GroupVersion.Group]) > 0 {
+					newSample.SetAnnotations(map[string]string{api.GroupVersion.Group: version.Version})
 					newSample.Spec = yamlSample.Spec
 					err := reconciler.Service.Update(context.TODO(), newSample)
 					if err != nil {

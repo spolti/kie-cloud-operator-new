@@ -3,6 +3,11 @@ package kieapp
 import (
 	"context"
 	"fmt"
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/defaults"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/shared"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/test"
 	"io/ioutil"
 	"reflect"
 	"strings"
@@ -33,7 +38,7 @@ func TestGenerateSecret(t *testing.T) {
 	mockService.GetSchemeFunc = func() *runtime.Scheme {
 		return scheme
 	}
-	reconciler := Reconciler{
+	reconciler := KieAppReconciler{
 		Service: mockService,
 	}
 
@@ -198,7 +203,7 @@ func TestGenerateTruststoreSecret(t *testing.T) {
 	mockService.GetSchemeFunc = func() *runtime.Scheme {
 		return scheme
 	}
-	reconciler := Reconciler{
+	reconciler := KieAppReconciler{
 		Service: mockService,
 	}
 
@@ -254,7 +259,7 @@ func TestGenerateSecrets(t *testing.T) {
 	}
 	env, err = defaults.GetEnvironment(cr, mockService)
 	assert.Nil(t, err, "Error getting a new environment")
-	reconciler := Reconciler{
+	reconciler := KieAppReconciler{
 		Service: mockService,
 	}
 	env, err = reconciler.setEnvironmentProperties(cr, env, getRequestedRoutes(env, cr), caConfigMap)
@@ -352,7 +357,7 @@ func TestConsoleHost(t *testing.T) {
 	}
 	env, err := defaults.GetEnvironment(cr, mockService)
 	assert.Nil(t, err, "Error creating a new environment")
-	reconciler := &Reconciler{Service: mockService}
+	reconciler := &KieAppReconciler{Service: mockService}
 	_, err = reconciler.setEnvironmentProperties(cr, env, getRequestedRoutes(env, cr), caConfigMap)
 	assert.Nil(t, err)
 	assert.Equal(t, fmt.Sprintf("http://%s", cr.Name), cr.Status.ConsoleHost, "status.ConsoleHost should be URL from the resulting workbench route host")
@@ -458,7 +463,7 @@ func TestVerifyExternalReferencesRoleMapper(t *testing.T) {
 		return scheme
 	}
 
-	reconciler := &Reconciler{Service: mockService}
+	reconciler := &KieAppReconciler{Service: mockService}
 	for _, test := range tests {
 		mockService.GetFunc = func(ctx context.Context, key client.ObjectKey, obj client.Object) error {
 			if test.errMsg == "" {
@@ -582,7 +587,7 @@ func TestVerifyExternalReferencesGitHooks(t *testing.T) {
 	mockService.GetSchemeFunc = func() *runtime.Scheme {
 		return scheme
 	}
-	reconciler := &Reconciler{Service: mockService}
+	reconciler := &KieAppReconciler{Service: mockService}
 
 	for _, test := range tests {
 		mockService.GetFunc = func(ctx context.Context, key client.ObjectKey, obj client.Object) error {
@@ -626,7 +631,7 @@ func TestCreateRhpamImageStreams(t *testing.T) {
 	isTagMock := mockSvc.ImageStreamTagsFunc(cr.Namespace)
 	_, err := defaults.GetEnvironment(cr, mockSvc)
 	assert.Nil(t, err)
-	reconciler := Reconciler{
+	reconciler := KieAppReconciler{
 		Service: mockSvc,
 	}
 
@@ -659,7 +664,7 @@ func TestCreateRhdmImageStreams(t *testing.T) {
 	isTagMock := mockSvc.ImageStreamTagsFunc(cr.Namespace)
 	_, err := defaults.GetEnvironment(cr, mockSvc)
 	assert.Nil(t, err)
-	reconciler := Reconciler{
+	reconciler := KieAppReconciler{
 		Service: mockSvc,
 	}
 
@@ -686,7 +691,7 @@ func TestCreateTagVersionImageStreams(t *testing.T) {
 	isTagMock := mockSvc.ImageStreamTagsFunc(cr.Namespace)
 	_, err := defaults.GetEnvironment(cr, mockSvc)
 	assert.Nil(t, err)
-	reconciler := Reconciler{
+	reconciler := KieAppReconciler{
 		Service: mockSvc,
 	}
 
@@ -713,7 +718,7 @@ func TestCreateImageStreamsLatest(t *testing.T) {
 	isTagMock := mockSvc.ImageStreamTagsFunc(cr.Namespace)
 	_, err := defaults.GetEnvironment(cr, mockSvc)
 	assert.Nil(t, err)
-	reconciler := Reconciler{
+	reconciler := KieAppReconciler{
 		Service: mockSvc,
 	}
 
@@ -736,7 +741,7 @@ func TestStatusDeploymentsProgression(t *testing.T) {
 	service := test.MockService()
 	err := service.Create(context.TODO(), cr)
 	assert.Nil(t, err)
-	reconciler := Reconciler{Service: service}
+	reconciler := KieAppReconciler{Service: service}
 	result, err := reconciler.Reconcile(context.TODO(), reconcile.Request{NamespacedName: crNamespacedName})
 	assert.Nil(t, err)
 	assert.Equal(t, reconcile.Result{Requeue: true, RequeueAfter: time.Duration(500) * time.Millisecond}, result, "Routes should be created, requeued for hostname detection before other resources are created")
@@ -813,7 +818,7 @@ func TestConsoleLinkCreation(t *testing.T) {
 	service := test.MockService()
 	err := service.Create(context.TODO(), cr)
 	assert.Nil(t, err)
-	reconciler := Reconciler{Service: service}
+	reconciler := KieAppReconciler{Service: service}
 	result, err := reconciler.Reconcile(context.TODO(), reconcile.Request{NamespacedName: crNamespacedName})
 	assert.Nil(t, err)
 	assert.Equal(t, reconcile.Result{Requeue: true, RequeueAfter: time.Duration(500) * time.Millisecond}, result, "Routes should be created, requeued for hostname detection before other resources are created")

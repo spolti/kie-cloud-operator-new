@@ -3,6 +3,9 @@ package defaults
 import (
 	"context"
 	"fmt"
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/test"
 	"os"
 	"reflect"
 	"strconv"

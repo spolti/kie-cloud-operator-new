@@ -1,6 +1,7 @@
 package kieapp
 
 import (
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/test"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -8,7 +9,7 @@ import (
 )
 
 func TestYamlSampleCreation(t *testing.T) {
-	reconciler := &Reconciler{Service: test.MockService(), OcpVersion: semver.MajorMinor("v4.2")}
+	reconciler := &KieAppReconciler{Service: test.MockService(), OcpVersion: semver.MajorMinor("v4.2")}
 	err := reconciler.createConsoleYAMLSamples()
 	assert.NotNil(t, err)
 	assert.Equal(t, "console yaml samples not installed, incompatible ocp version", err.Error())
@@ -17,6 +18,6 @@ func TestYamlSampleCreation(t *testing.T) {
 }
 
 func TestYamlSampleCreationUnknownClusterVersion(t *testing.T) {
-	reconciler := &Reconciler{Service: test.MockService(), OcpVersion: semver.MajorMinor("")}
+	reconciler := &KieAppReconciler{Service: test.MockService(), OcpVersion: semver.MajorMinor("")}
 	assert.Nil(t, reconciler.createConsoleYAMLSamples())
 }

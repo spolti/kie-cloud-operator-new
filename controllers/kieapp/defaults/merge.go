@@ -1,8 +1,8 @@
 package defaults
 
 import (
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/shared"
 	"reflect"
-	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/imdario/mergo"
@@ -91,7 +91,7 @@ func mergePersistentVolumeClaims(baseline []corev1.PersistentVolumeClaim, overwr
 }
 
 func getPersistentVolumeClaimReferenceSlice(objects []corev1.PersistentVolumeClaim) []api.OpenShiftObject {
-	slice := make([]client.Object, len(objects))
+	slice := make([]api.OpenShiftObject, len(objects))
 	for index := range objects {
 		slice[index] = &objects[index]
 	}

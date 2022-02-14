@@ -11,10 +11,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	//	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
 // KieApp is the Schema for the kieapps API
@@ -32,6 +30,15 @@ type KieApp struct {
 	// +kubebuilder:validation:Required
 	Spec   KieAppSpec   `json:"spec"`
 	Status KieAppStatus `json:"status,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+
+// KieAppList contains a list of KieApp
+type KieAppList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	Items           []KieApp `json:"items"`
 }
 
 // KieAppSpec defines the desired state of KieApp
@@ -54,16 +61,6 @@ type KieAppSpec struct {
 	Version      string            `json:"version,omitempty"`
 	CommonConfig CommonConfig      `json:"commonConfig,omitempty"`
 	Auth         *KieAppAuthObject `json:"auth,omitempty"`
-}
-
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:object:root=true
-
-// KieAppList contains a list of KieApp
-type KieAppList struct {
-	metav1.TypeMeta `json:",inline"`
-	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []KieApp `json:"items"`
 }
 
 // KieAppObjects KIE App deployment objects
@@ -232,6 +229,7 @@ type StartupStrategy struct {
 	ControllerTemplateCacheTTL *int `json:"controllerTemplateCacheTTL,omitempty"`
 }
 
+// +k8s:deepcopy-gen=false
 type OpenShiftObject interface {
 	client.Object
 }

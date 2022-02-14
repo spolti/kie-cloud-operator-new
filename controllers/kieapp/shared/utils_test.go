@@ -2,6 +2,7 @@ package shared
 
 import (
 	"bytes"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
 	"io/ioutil"
 	"testing"
 
