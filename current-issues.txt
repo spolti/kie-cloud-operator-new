@@ -1,0 +1,12 @@
+# github.com/spolti/kie-cloud-operator-new/controllers/kieapp/defaults
+controllers/kieapp/defaults/auth.go:14:32: undefined: api
+controllers/kieapp/defaults/auth.go:37:24: undefined: api
+controllers/kieapp/defaults/auth.go:56:23: undefined: api
+controllers/kieapp/defaults/auth.go:85:28: undefined: api
+controllers/kieapp/defaults/auth.go:93:34: undefined: api
+controllers/kieapp/defaults/defaults.go:39:25: undefined: api
+controllers/kieapp/defaults/defaults.go:154:27: undefined: api
+controllers/kieapp/defaults/defaults.go:164:25: undefined: api
+controllers/kieapp/defaults/defaults.go:190:26: undefined: api
+controllers/kieapp/defaults/defaults.go:199:35: undefined: api
+controllers/kieapp/defaults/defaults.go:199:35: too many errors

@@ -11,6 +11,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+	//	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -54,7 +55,6 @@ type KieAppSpec struct {
 	CommonConfig CommonConfig      `json:"commonConfig,omitempty"`
 	Auth         *KieAppAuthObject `json:"auth,omitempty"`
 }
-
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true

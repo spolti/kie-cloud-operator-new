@@ -1,6 +1,9 @@
 package components
 
 import (
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
+	"github.com/spolti/kie-cloud-operator-new/version"
+	"k8s.io/client-go/tools/clientcmd/api"
 	"sort"
 	"strings"
 
@@ -282,7 +285,7 @@ func GetRole(operatorName string) *rbacv1.Role {
 			},
 			{
 				APIGroups: []string{
-					 csvv1.SchemeGroupVersion.Group,
+					csvv1.SchemeGroupVersion.Group,
 				},
 				Resources: []string{
 					"clusterserviceversions",

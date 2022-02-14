@@ -3,11 +3,13 @@ package defaults
 import (
 	"context"
 	"fmt"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
 	"strings"
 
 	"github.com/RHsyseng/operator-utils/pkg/utils/kubernetes"
 	"github.com/gobuffalo/packr/v2"
 	"github.com/google/go-cmp/cmp"
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/types"
 )

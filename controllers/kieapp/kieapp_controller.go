@@ -25,17 +25,18 @@ import (
 	"github.com/RHsyseng/operator-utils/pkg/resource/read"
 	"github.com/RHsyseng/operator-utils/pkg/resource/write"
 	"github.com/RHsyseng/operator-utils/pkg/utils/kubernetes"
-	"github.com/spolti/kie-cloud-operator-new/core/logger"
-	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
-	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/defaults"
-	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/shared"
-	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/status"
 	oappsv1 "github.com/openshift/api/apps/v1"
 	buildv1 "github.com/openshift/api/build/v1"
 	consolev1 "github.com/openshift/api/console/v1"
 	oimagev1 "github.com/openshift/api/image/v1"
 	routev1 "github.com/openshift/api/route/v1"
 	operatorsv1alpha1 "github.com/operator-framework/api/pkg/operators/v1alpha1"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/defaults"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/shared"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/status"
+	"github.com/spolti/kie-cloud-operator-new/core/logger"
+	"golang.org/x/mod/semver"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	rbacv1 "k8s.io/api/rbac/v1"
@@ -60,7 +61,7 @@ var log = logs.GetLogger("kieapp.controller")
 // KieAppReconciler reconciles a KieApp object
 type KieAppReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
+	Scheme     *runtime.Scheme
 	Service    kubernetes.PlatformService
 	OcpVersion string
 }
@@ -1168,9 +1169,10 @@ func getConsoleLinkName(cr *api.KieApp) string {
 func getConsoleLinkFriendlyName(cr *api.KieApp) string {
 	return fmt.Sprintf("%s: %s", cr.Name, constants.EnvironmentConstants[cr.Status.Applied.Environment].App.FriendlyName)
 }
+
 // SetupWithManager sets up the controller with the Manager.
 func (r *KieAppReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&appv2.KieApp{}).
+		For(&api.KieApp{}).
 		Complete(r)
 }

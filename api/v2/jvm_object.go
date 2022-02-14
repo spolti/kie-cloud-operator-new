@@ -1,6 +1,5 @@
 package v2
 
-
 // JvmObject JVM specification to be used by the KieApp
 // +k8s:openapi-gen=true
 // +operator-sdk:csv:customresourcedefinitions:displayName="JVM specification"

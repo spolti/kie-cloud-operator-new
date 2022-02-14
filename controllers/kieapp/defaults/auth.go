@@ -2,6 +2,9 @@ package defaults
 
 import (
 	"github.com/pkg/errors"
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/shared"
 	corev1 "k8s.io/api/core/v1"
 	"path/filepath"
 )

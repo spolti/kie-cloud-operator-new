@@ -2,6 +2,7 @@ package defaults
 
 import (
 	"reflect"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/imdario/mergo"
@@ -10,6 +11,7 @@ import (
 	oimagev1 "github.com/openshift/api/image/v1"
 	routev1 "github.com/openshift/api/route/v1"
 	"github.com/pkg/errors"
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	rbacv1 "k8s.io/api/rbac/v1"
@@ -89,7 +91,7 @@ func mergePersistentVolumeClaims(baseline []corev1.PersistentVolumeClaim, overwr
 }
 
 func getPersistentVolumeClaimReferenceSlice(objects []corev1.PersistentVolumeClaim) []api.OpenShiftObject {
-	slice := make([]api.OpenShiftObject, len(objects))
+	slice := make([]client.Object, len(objects))
 	for index := range objects {
 		slice[index] = &objects[index]
 	}

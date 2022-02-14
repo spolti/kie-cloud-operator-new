@@ -38,13 +38,12 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	appv2 "github.com/spolti/kie-cloud-operator-new/api/v2"
-
 	//+kubebuilder:scaffold:imports
 )
 
 var (
-	scheme   = runtime.NewScheme()
-	log = logger.GetLogger("setup")
+	scheme = runtime.NewScheme()
+	log    = logger.GetLogger("setup")
 )
 
 func init() {
@@ -118,8 +117,8 @@ func main() {
 }
 
 func printVersion() {
-	log.Info("Go","Version", osruntime.Version())
-	log.Info("GO","OS", osruntime.GOOS, "Arch", osruntime.GOARCH)
+	log.Info("Go", "Version", osruntime.Version())
+	log.Info("GO", "OS", osruntime.GOOS, "Arch", osruntime.GOARCH)
 	// TODO find a way to grab this information on runtime or just drop it
 	//log.Info(fmt.Sprintf("Version of operator-sdk: %v", sdkVersion.Version))
 	log.Info(fmt.Sprintf("Kie Operator Version: %v", version.Version))

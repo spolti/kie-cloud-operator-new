@@ -1,6 +1,5 @@
 package v2
 
-
 const (
 	// RhpamTrial RHPAM Trial environment
 	RhpamTrial EnvironmentType = "rhpam-trial"
@@ -26,7 +25,6 @@ const (
 
 // EnvironmentType describes a possible application environment
 type EnvironmentType string
-
 
 // EnvironmentConstants stores both the App and Replica Constants for a given environment
 type EnvironmentConstants struct {

@@ -2,6 +2,7 @@ package test
 
 import (
 	"context"
+	"sigs.k8s.io/controller-runtime/pkg/client/fake"
 
 	"github.com/RHsyseng/operator-utils/pkg/logs"
 	oappsv1 "github.com/openshift/api/apps/v1"
@@ -10,13 +11,13 @@ import (
 	oimagev1 "github.com/openshift/api/image/v1"
 	routev1 "github.com/openshift/api/route/v1"
 	imagev1 "github.com/openshift/client-go/image/clientset/versioned/typed/image/v1"
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	rbacv1 "k8s.io/api/rbac/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	clientv1 "sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/client/fake"
 )
 
 var log = logs.GetLogger("kieapp.test")

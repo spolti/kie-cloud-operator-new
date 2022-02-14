@@ -6,6 +6,9 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/constants"
+	"github.com/spolti/kie-cloud-operator-new/controllers/kieapp/shared"
+	"github.com/spolti/kie-cloud-operator-new/version"
 	"os"
 	"strconv"
 	"strings"
@@ -16,6 +19,7 @@ import (
 	"github.com/ghodss/yaml"
 	"github.com/gobuffalo/packr/v2"
 	"github.com/imdario/mergo"
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
 	"golang.org/x/mod/semver"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -1304,7 +1308,7 @@ func ConfigMapsFromFile(myDep *appsv1.Deployment, ns string, scheme *runtime.Sch
 				Name:      cmName,
 				Namespace: ns,
 				Annotations: map[string]string{
-					api.SchemeGroupVersion.Group: version.Version,
+					api.GroupVersion.Group: version.Version,
 				},
 			},
 			Data: cmData,
@@ -1364,7 +1368,7 @@ func usedServerSetName(servers []api.KieServerSet, serverSetName string) bool {
 func SetDefaults(cr *api.KieApp) {
 	if cr.GetAnnotations() == nil {
 		cr.SetAnnotations(map[string]string{
-			api.SchemeGroupVersion.Group: version.Version,
+			api.GroupVersion.Group: version.Version,
 		})
 	}
 

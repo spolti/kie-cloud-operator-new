@@ -1,6 +1,7 @@
 package constants
 
 import (
+	api "github.com/spolti/kie-cloud-operator-new/api/v2"
 	"golang.org/x/mod/semver"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -22,7 +23,7 @@ var SupportedVersions = []string{CurrentVersion, PriorVersion}
 // VersionConstants ...
 var VersionConstants = map[string]*api.VersionConfigs{
 	CurrentVersion: {
-		APIVersion:          api.SchemeGroupVersion.Version,
+		APIVersion:          api.GroupVersion.Version,
 		OseCliImageURL:      OseCli4ImageURL,
 		OseCliComponent:     OseCli4Component,
 		BrokerImage:         BrokerImage,
@@ -38,7 +39,7 @@ var VersionConstants = map[string]*api.VersionConfigs{
 		PostgreSQLComponent: PostgreSQL10Component,
 	},
 	PriorVersion: {
-		APIVersion:          api.SchemeGroupVersion.Version,
+		APIVersion:          api.GroupVersion.Version,
 		OseCliImageURL:      OseCli4ImageURL,
 		OseCliComponent:     OseCli4Component,
 		BrokerImage:         BrokerImage,

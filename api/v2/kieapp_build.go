@@ -85,4 +85,3 @@ type BuildTemplate struct {
 	ExtensionImageStreamTagNamespace string `json:"extensionImageStreamTagNamespace,omitempty"`
 	ExtensionImageInstallDir         string `json:"extensionImageInstallDir,omitempty"`
 }
-
