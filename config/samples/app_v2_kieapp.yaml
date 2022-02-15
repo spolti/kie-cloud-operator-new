@@ -1,6 +1,11 @@
 apiVersion: app.kiegroup.org/v2
 kind: KieApp
 metadata:
-  name: kieapp-sample
+  name: rhpam-trial
+  annotations:
+    consoleName: rhpam-trial
+    consoleTitle: PAM Trial
+    consoleDesc: Deploys a PAM Trial environment
 spec:
-  # TODO(user): Add fields here
+  environment: rhpam-trial
+

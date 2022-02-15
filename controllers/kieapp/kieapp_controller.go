@@ -66,9 +66,18 @@ type KieAppReconciler struct {
 	OcpVersion string
 }
 
-//+kubebuilder:rbac:groups=app.kiegroup.org,resources=kieapps,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=app.kiegroup.org,resources=kieapps/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=app.kiegroup.org,resources=kieapps/finalizers,verbs=update
+// +kubebuilder:rbac:groups=app.kiegroup.org,resources=kieapps,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=app.kiegroup.org,resources=kieapps/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=app.kiegroup.org,resources=kieapps/finalizers,verbs=update
+// +kubebuilder:rbac:groups="",resources=configmaps;pods;services;services/finalizers;serviceaccounts;persistentvolumeclaims;secrets,verbs=create;delete;deletecollection;get;list;patch;update;watch
+// +kubebuilder:rbac:groups=apps,resources=deployments;deployments/finalizers;replicasets;statefulsets,verbs=create;delete;deletecollection;get;list;patch;update;watch
+// +kubebuilder:rbac:groups=apps.openshift.io,resources=rolebindings;roles,verbs=create;delete;deletecollection;get;list;patch;update;watch
+// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=deploymentconfigs,verbs=create;delete;deletecollection;get;list;patch;update;watch
+// +kubebuilder:rbac:groups=route.openshift.io,resources=routes;routes/custom-host,verbs=create;delete;deletecollection;get;list;patch;update;watch
+// +kubebuilder:rbac:groups=build.openshift.io,resources=buildconfigs,verbs=create;delete;deletecollection;get;list;patch;update;watch
+// +kubebuilder:rbac:groups=image.openshift.io,resources=images;imagestream;imagestreamimages;imagestreamtags,verbs=create;delete;deletecollection;get;list;patch;update;watch
+// +kubebuilder:rbac:groups=monitoring.coreos.com,resources=servicemonitors,verbs=get;create
+// +kubebuilder:rbac:groups=operators.coreos.com,resources=clusterserviceversions;subscriptions,verbs=get;list;patch;update;watch
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -77,7 +86,7 @@ type KieAppReconciler struct {
 // the user.
 //
 // For more details, check Reconcile and its Result here:
-// - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.9.1/pkg/reconcile
+// - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.10.0/pkg/reconcile
 func (reconciler *KieAppReconciler) Reconcile(ctx context.Context, request ctrl.Request) (ctrl.Result, error) {
 
 	log := logger.FromContext(ctx)

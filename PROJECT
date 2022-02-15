@@ -4,7 +4,7 @@ layout:
 plugins:
   manifests.sdk.operatorframework.io/v2: {}
   scorecard.sdk.operatorframework.io/v2: {}
-projectName: kie-cloud-operator-new
+projectName: businessautomation-operator
 repo: github.com/spolti/kie-cloud-operator-new
 resources:
 - api:

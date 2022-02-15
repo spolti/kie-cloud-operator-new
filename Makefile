@@ -3,7 +3,7 @@
 # To re-generate a bundle for another specific version without changing the standard setup, you can:
 # - use the VERSION as arg of the bundle target (e.g make bundle VERSION=0.0.2)
 # - use environment variables to overwrite this value (e.g export VERSION=0.0.2)
-VERSION ?= 0.0.1
+VERSION ?= 7.12.1
 
 # CHANNELS define the bundle channels used in the bundle.
 # Add a new line here if you would like to change its default config. (E.g CHANNELS = "candidate,fast,stable")
@@ -78,6 +78,7 @@ help: ## Display this help.
 .PHONY: manifests
 manifests: controller-gen ## Generate WebhookConfiguration, ClusterRole and CustomResourceDefinition objects.
 	$(CONTROLLER_GEN) rbac:roleName=manager-role crd webhook paths="./..." output:crd:artifacts:config=config/crd/bases
+	$(CONTROLLER_GEN) rbac:roleName=manager-role paths="./controllers/kieapp" output:rbac:artifacts:config=config/rbac
 
 .PHONY: generate
 generate: controller-gen ## Generate code containing DeepCopy, DeepCopyInto, and DeepCopyObject method implementations.
@@ -171,6 +172,7 @@ bundle: manifests kustomize ## Generate bundle manifests and metadata, then vali
 	cd config/manager && $(KUSTOMIZE) edit set image controller=$(IMG)
 	$(KUSTOMIZE) build config/manifests | operator-sdk generate bundle -q --overwrite --version $(VERSION) $(BUNDLE_METADATA_OPTS)
 	operator-sdk bundle validate ./bundle
+	sh hack/update-bundle.sh
 
 .PHONY: bundle-build
 bundle-build: ## Build the bundle image.
